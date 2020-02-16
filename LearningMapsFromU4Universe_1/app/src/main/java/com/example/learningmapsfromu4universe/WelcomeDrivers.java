@@ -70,8 +70,8 @@ public class WelcomeDrivers extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(WelcomeDrivers.this, "My Location ", Toast.LENGTH_SHORT).show();
-               /* Intent intent = new Intent(WelcomeDrivers.this, MainActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(WelcomeDrivers.this, DriverMapping.class);
+                startActivity(intent);
             }
         });
         button_my_notifications.setOnClickListener(new View.OnClickListener() {

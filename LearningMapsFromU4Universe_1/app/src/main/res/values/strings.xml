@@ -25,5 +25,6 @@
         <item> User </item>
         <item> Driver </item>
     </string-array>
+    <string name="title_activity_driver_mapping">Map</string>
 
 </resources>

@@ -210,7 +210,8 @@ public class MainActivity extends  FragmentActivity implements OnMapReadyCallbac
         );
             // storing the helper class data to firebase --> codes
 
-        FirebaseDatabase.getInstance().getReference("Current Location").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+        FirebaseDatabase.getInstance().getReference("Current Location")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .setValue(helper).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
