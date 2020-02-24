@@ -14,12 +14,18 @@
     android:background="#019031"
    >
 
-<ImageView
+<!--<ImageView
     android:layout_width="match_parent"
     android:layout_height="350dp"
     android:src="@drawable/frontpagephoto"
-    android:layout_marginBottom="20dp"/>
+    android:layout_marginBottom="20dp"/>-->
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:id="@+id/view_pager"
+        >
 
+    </androidx.viewpager.widget.ViewPager>
 
 
     <com.google.android.material.textfield.TextInputLayout
