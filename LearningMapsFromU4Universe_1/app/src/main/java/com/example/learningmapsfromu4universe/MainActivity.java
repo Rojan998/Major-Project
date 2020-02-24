@@ -85,18 +85,6 @@ public class MainActivity extends  FragmentActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-//        if (mLocationPermissionGranted) {
-//            Toast.makeText(this, "Ready to Map ", Toast.LENGTH_SHORT).show();
-//
-//        } else {
-//            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-//                    != PackageManager.PERMISSION_GRANTED) {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
-//                }
-//
-//            }
-//        }
     }
 
 
@@ -140,14 +128,6 @@ public class MainActivity extends  FragmentActivity implements OnMapReadyCallbac
                 }
                 return;
         }
-//
-//        if (requestCode == PERMISSION_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//            mLocationPermissionGranted = true;
-//            Toast.makeText(this, "PERMISSION GRANTED ! ", Toast.LENGTH_SHORT).show();
-//
-//        } else {
-//            Toast.makeText(this, "PERMISSION DENIED ! ", Toast.LENGTH_SHORT).show();
-//        }
 
     }
 
@@ -188,7 +168,7 @@ public class MainActivity extends  FragmentActivity implements OnMapReadyCallbac
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Current Location");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
         currentLocationMarker =map.addMarker(markerOptions);
 
@@ -210,7 +190,7 @@ public class MainActivity extends  FragmentActivity implements OnMapReadyCallbac
         );
             // storing the helper class data to firebase --> codes
 
-        FirebaseDatabase.getInstance().getReference("Current Location")
+        FirebaseDatabase.getInstance().getReference("User Current Location")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .setValue(helper).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -254,9 +234,6 @@ public class MainActivity extends  FragmentActivity implements OnMapReadyCallbac
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-
-
-
 
 }
 
