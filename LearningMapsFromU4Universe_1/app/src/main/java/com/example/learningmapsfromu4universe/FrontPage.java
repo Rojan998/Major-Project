@@ -40,7 +40,7 @@ public class FrontPage extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_front_page);
-        getSupportActionBar().setTitle("Welcome ! ");
+        //getSupportActionBar().setTitle("Welcome ! ");
 
         viewPager = findViewById(R.id.view_pager);
         adapter =new CustomSwipeAdapter(this);

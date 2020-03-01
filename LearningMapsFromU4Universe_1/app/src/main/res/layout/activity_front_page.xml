@@ -6,12 +6,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <LinearLayout
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="20dp"
-    android:background="#019031"
+    android:background="@drawable/ojubackground"
    >
 
 <!--<ImageView
@@ -33,7 +33,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+
+        android:background="@drawable/edit_round"
+
+        >
 
         <EditText
             android:id="@+id/loginEmail"
@@ -43,6 +47,9 @@
             android:hint="Email:"
             android:inputType="text"
             android:textSize="20sp"
+            android:textColor="#000000"
+
+
 
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -54,6 +61,8 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         app:passwordToggleEnabled="true"
+        android:background="@drawable/edit_round"
+
 
 
         >
@@ -66,6 +75,8 @@
             android:hint="Password:"
             android:inputType="textPassword"
             android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/edit_round"
 
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +91,7 @@
         android:background="@drawable/rounded_edge"
         android:layout_margin="10dp"
         android:textSize="20dp"
-        android:textColor="#EEC213"/>
+        android:textColor="#EAF0F1"/>
 
     <Button
     android:layout_width="match_parent"
@@ -88,7 +99,7 @@
     android:id="@+id/FrontRegister"
     android:layout_margin="10dp"
     android:text="Register"
-    android:textColor="#EEC213"
+    android:textColor="#EAF0F1"
     android:textSize="20dp"
     android:background="@drawable/rounded_edge"/>
 

@@ -6,9 +6,12 @@
     >
 
     <solid
-    android:color="#2ecc72"
+    android:color="#00796B"
+
+
 
 />
+    <!--#0B8DE4-->
 
     <corners
 

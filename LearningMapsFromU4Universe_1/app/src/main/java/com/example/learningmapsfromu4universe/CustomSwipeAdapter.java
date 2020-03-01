@@ -15,7 +15,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 public class CustomSwipeAdapter extends PagerAdapter {
 
-    private int[] image_resources ={R.drawable.welcome1,R.drawable.waste1,R.drawable.waste2,R.drawable.waste3};
+    private int[] image_resources ={R.drawable.safasamajone,R.drawable.waste1,R.drawable.waste2,R.drawable.waste3};
     private Context ctx;
     private LayoutInflater layoutInflater;
 

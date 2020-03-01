@@ -90,6 +90,8 @@ public class Guide_section extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Guide_section.this, "My Schedule ", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Guide_section.this, mySchedule.class);
+                startActivity(intent);
             }
         });
         button_my_location.setOnClickListener(new View.OnClickListener() {
