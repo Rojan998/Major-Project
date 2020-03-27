@@ -73,7 +73,7 @@ public class Guide_section extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Guide_section.this, "My Profile ", Toast.LENGTH_SHORT).show();
-                 Intent intent = new Intent(Guide_section.this, userProfile.class);
+                 Intent intent = new Intent(Guide_section.this, profileUser.class);
                  startActivity(intent);
             }
         });

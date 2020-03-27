@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/appicon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mySchedule"></activity>
+        <activity android:name=".profileDriver"></activity>
+        <activity android:name=".profileUser" />
+        <activity android:name=".mySchedule" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,7 +38,6 @@
             android:name=".DriverMapping"
             android:label="@string/title_activity_driver_mapping" />
         <activity android:name=".driverProfile" />
-        <activity android:name=".userProfile" />
         <activity android:name=".WelcomeDrivers" />
         <activity android:name=".SignUp_Form_Admin" />
         <activity android:name=".AdminManage" />

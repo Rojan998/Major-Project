@@ -47,7 +47,7 @@ public class WelcomeDrivers extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(WelcomeDrivers.this, "My Profile ", Toast.LENGTH_SHORT).show();
-                 Intent intent = new Intent(WelcomeDrivers.this, driverProfile.class);
+                 Intent intent = new Intent(WelcomeDrivers.this, profileDriver.class);
                  startActivity(intent);
             }
         });
