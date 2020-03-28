@@ -11,6 +11,7 @@ public class userRegistrationHelper {
             PhoneNumber;
 
 
+
     public userRegistrationHelper() {
 
 
@@ -25,5 +26,6 @@ public class userRegistrationHelper {
         FamilyMembers = noOfFamilyMembers;
         HouseNumber = houseNumber;
         PhoneNumber = phoneNumber;
+
     }
 }

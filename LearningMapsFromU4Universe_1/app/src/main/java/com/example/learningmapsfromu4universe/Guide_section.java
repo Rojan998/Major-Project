@@ -106,6 +106,8 @@ public class Guide_section extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Guide_section.this, "My Notifications ", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Guide_section.this, mainNotification.class);
+                startActivity(intent);
             }
         });
 

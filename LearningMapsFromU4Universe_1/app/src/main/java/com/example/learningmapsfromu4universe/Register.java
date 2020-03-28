@@ -120,6 +120,7 @@ public class Register extends AppCompatActivity {
                                                 family_members,
                                                 house_number,
                                                 phone_number
+
                                         );
 
                                         email = txt_email.getText().toString().trim();
