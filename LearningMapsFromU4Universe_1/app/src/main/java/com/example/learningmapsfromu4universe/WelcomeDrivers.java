@@ -79,7 +79,12 @@ public class WelcomeDrivers extends AppCompatActivity {
         button_my_notifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Toast.makeText(WelcomeDrivers.this, "My Notifications ", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(WelcomeDrivers.this, mainNotification.class);
+                startActivity(intent);
             }
         });
 

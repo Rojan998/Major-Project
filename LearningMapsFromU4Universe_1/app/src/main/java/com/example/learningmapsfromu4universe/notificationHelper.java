@@ -15,7 +15,7 @@ public class notificationHelper {
     public static void  displayNotification(Context context, String title, String body) {
 
 
-        Intent intent = new Intent(context, profileUser.class);
+        Intent intent = new Intent(context, MainActivity.class);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 context,

@@ -1,11 +1,18 @@
 package com.example.learningmapsfromu4universe;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,7 +43,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
 import java.security.PrivilegedAction;
+import java.util.List;
+import java.util.Locale;
 
 
 // Google map ra Navigation Bar ko code yaha xa hai ....
@@ -69,10 +79,13 @@ public class MainActivity extends  FragmentActivity implements OnMapReadyCallbac
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
        // Toolbar toolbar =findViewById(R.id.toolbar); //Navigation bar ko code initialization;
 
@@ -84,6 +97,13 @@ public class MainActivity extends  FragmentActivity implements OnMapReadyCallbac
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+
+
+
+
+
 
     }
 
@@ -165,9 +185,13 @@ public class MainActivity extends  FragmentActivity implements OnMapReadyCallbac
         }
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
+
+            String cityName =  getCityName(latLng);
+
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
-        markerOptions.title("Current Location");
+         markerOptions.title(cityName);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
         currentLocationMarker =map.addMarker(markerOptions);
@@ -208,6 +232,25 @@ public class MainActivity extends  FragmentActivity implements OnMapReadyCallbac
 
     }
 
+    private String getCityName(LatLng latLng) {
+        String myCity = "";
+        Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+        try {
+
+
+            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+
+            String address = addresses.get(0).getAddressLine(0);
+            myCity = addresses.get(0).getSubLocality();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return myCity;
+
+    }
+
+
+
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -234,6 +277,8 @@ public class MainActivity extends  FragmentActivity implements OnMapReadyCallbac
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
 
 }
 

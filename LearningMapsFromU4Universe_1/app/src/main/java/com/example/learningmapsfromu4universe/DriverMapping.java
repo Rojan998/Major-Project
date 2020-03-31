@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +37,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class DriverMapping extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
@@ -143,8 +149,12 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
 
                 LatLng location = new LatLng(Latitude,Longitude);
 
+                String usercityName =  getUserCityName(location);
 
-                mMap.addMarker(new MarkerOptions().position(location).title("Marker in Current Location")
+
+
+
+                mMap.addMarker(new MarkerOptions().position(location).title(usercityName)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,14F));
 
@@ -173,6 +183,23 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
             }
         });
 
+    }
+
+    private String getUserCityName(LatLng location) {
+
+        String myCity = "";
+        Geocoder geocoder = new Geocoder(DriverMapping.this, Locale.getDefault());
+        try {
+
+
+            List<Address> addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
+
+            String address = addresses.get(0).getAddressLine(0);
+            myCity = addresses.get(0).getSubLocality();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return myCity;
     }
 
     protected synchronized void buildGoogleApiClient()
@@ -217,9 +244,11 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
         }
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
+        String drivercityName =  getDriverCityName(latLng);
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
-        markerOptions.title("Current Location");
+        markerOptions.title(drivercityName);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
 
         currentLocationMarker =mMap.addMarker(markerOptions);
@@ -258,6 +287,24 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
         });
 
     }
+
+    private String getDriverCityName(LatLng latLng) {
+
+        String myCity = "";
+        Geocoder geocoder = new Geocoder(DriverMapping.this, Locale.getDefault());
+        try {
+
+
+            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+
+            String address = addresses.get(0).getAddressLine(0);
+            myCity = addresses.get(0).getSubLocality();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return myCity;
+    }
+
     @Override
     public void onConnectionSuspended(int i) {
 
