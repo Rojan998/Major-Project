@@ -13,6 +13,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -39,6 +41,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -50,17 +53,41 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     public static final int PERMISSION_REQUEST_CODE = 9001;
 
+    Button btn_show_directions;
+
     private GoogleApiClient client;
     private LocationRequest locationRequest;
-    private  Location lastLocation;
+    private Location lastLocation;
     private Marker currentLocationMarker;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
+
+    ArrayList<LatLng> markerPoints;
+
+    // private MarkerOptions place1, place2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_mapping);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        {
+
+        markerPoints = new ArrayList<LatLng>();
+
+
+        btn_show_directions = findViewById(R.id.showDirection);
+        btn_show_directions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                //getDirections();
+            }
+        });
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
 
         }
@@ -70,48 +97,74 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
     }
 
-    public boolean checkLocationPermission(){
+
+/*    public LatLng  getDirections(LatLng location) {
+*//*
+        List<Address> placeList;
+        if (!location.equals("")){
+            Geocoder geocoder = new Geocoder(this);
+            placeList = geocoder.getFromLocationName(location,5);
+
+
+
+             *//*
+    } */
+
+  /*      DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("User Current Location")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+*/
+
+
+
+
+
+
+    public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)){
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},PERMISSION_REQUEST_CODE);
-            }
-            else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},PERMISSION_REQUEST_CODE);
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
             }
             return false;
-        }
-        else
-            return  true;
+        } else
+            return true;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
 
-        switch (requestCode)
-        {
-            case    PERMISSION_REQUEST_CODE:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission Granted !
                     if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED ){
-                        if (client == null){
+                            == PackageManager.PERMISSION_GRANTED) {
+                        if (client == null) {
                             buildGoogleApiClient();
                         }
                         mMap.setMyLocationEnabled(true);
                     }
-                }
-                else{ // permision denied
+                } else { // permision denied
                     Toast.makeText(this, "Permission Denied !", Toast.LENGTH_SHORT).show();
                 }
                 return;
         }
 
     }
-
-
-
 
 
     /**
@@ -147,20 +200,23 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
                 Double Latitude = dataSnapshot.child("latitude").getValue(Double.class);
                 Double Longitude = dataSnapshot.child("longitude").getValue(Double.class);
 
-                LatLng location = new LatLng(Latitude,Longitude);
-
-                String usercityName =  getUserCityName(location);
+                LatLng location = new LatLng(Latitude, Longitude);
 
 
+
+                String usercityName = getUserCityName(location);
 
 
                 mMap.addMarker(new MarkerOptions().position(location).title(usercityName)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,14F));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
+
 
 
 
             }
+
+
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -196,14 +252,13 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
 
             String address = addresses.get(0).getAddressLine(0);
             myCity = addresses.get(0).getSubLocality();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return myCity;
     }
 
-    protected synchronized void buildGoogleApiClient()
-    {
+    protected synchronized void buildGoogleApiClient() {
         client = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -212,7 +267,6 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
 
         client.connect();
     }
-
 
 
     // paxi ko ho yo
@@ -226,7 +280,7 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
         locationRequest.setFastestInterval(1000);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
-        if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, this);
         }
@@ -239,24 +293,24 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
     public void onLocationChanged(Location location) {
         lastLocation = location;
 
-        if (currentLocationMarker != null){
+        if (currentLocationMarker != null) {
             currentLocationMarker.remove();
         }
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        String drivercityName =  getDriverCityName(latLng);
+        String drivercityName = getDriverCityName(latLng);
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title(drivercityName);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
 
-        currentLocationMarker =mMap.addMarker(markerOptions);
+        currentLocationMarker = mMap.addMarker(markerOptions);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.moveCamera(CameraUpdateFactory.zoomBy(10));
 
-        if (client != null){
+        if (client != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(client, this);
 
         }
@@ -277,14 +331,22 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(DriverMapping.this, "Location is saved ! ", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     Toast.makeText(DriverMapping.this, "Location is not saved ! ", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+
+        // Api use garne suru yaha bata.......YouTube: The code city
+
+
+  /*      String place1 = latLng.toString();
+        String place2 = location.toString();
+
+        String url = getUrl(place1.)*/
 
     }
 
@@ -299,7 +361,7 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
 
             String address = addresses.get(0).getAddressLine(0);
             myCity = addresses.get(0).getSubLocality();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return myCity;

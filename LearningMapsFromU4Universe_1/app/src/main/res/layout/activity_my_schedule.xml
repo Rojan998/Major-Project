@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,19 +22,50 @@
     </CalendarView>
 
 
-
     <TextView
         android:id="@+id/timeanddateTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="10dp"
         android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="Waste Pickup timings \n\nMorning Time: 9:00 am \nEvening time: 5:00 pm "
+        android:textSize="20sp"
 
-        android:text="Waste Pickup timings \n\nMorning Time: 9:00 am \nEvening time: 5:00 pm "/>
+        android:textStyle="bold" />
 
+
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_margin="30sp"
+        android:layout_gravity="center_horizontal"
+        android:text="No Alarm set !"/>
+
+
+    <Button
+        android:id="@+id/set_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@drawable/rounded_edge"
+        android:text="Set Reminder"
+
+        />
+
+    <Button
+        android:id="@+id/cancel_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/rounded_edge"
+        android:text="Cancel Reminder"
+
+        />
 
 </LinearLayout>
+</ScrollView>
