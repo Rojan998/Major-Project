@@ -22,7 +22,7 @@ public class Guide_section extends AppCompatActivity {
             button_my_schedule,
             button_my_location,
             button_my_notifications,
-            button_about_app,
+            button_dustbin_near_me,
             button_project_team,
             button_acknowledgement,
             button_signout;
@@ -63,7 +63,7 @@ public class Guide_section extends AppCompatActivity {
         button_my_schedule = findViewById(R.id.buttonmyschedule);
         button_my_location = findViewById(R.id.buttonmylocation);
         button_my_notifications = findViewById(R.id.buttonnotifications);
-        button_about_app = findViewById(R.id.butonAboutTheAPP);
+        button_dustbin_near_me = findViewById(R.id.butonDustbinNearMe);
         button_project_team = findViewById(R.id.buttonProjectTeam);
         button_acknowledgement = findViewById(R.id.butonAcknowledgement);
         button_signout = findViewById(R.id.buttonSignOut);
@@ -111,10 +111,13 @@ public class Guide_section extends AppCompatActivity {
             }
         });
 
-        button_about_app.setOnClickListener(new View.OnClickListener() {
+        button_dustbin_near_me.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Guide_section.this, "About the APP ", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(Guide_section.this, "Dustbin Near Me ", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Guide_section.this, nearByMainActivuty.class);
+                startActivity(intent);
             }
         });
         button_project_team.setOnClickListener(new View.OnClickListener() {

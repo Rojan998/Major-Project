@@ -331,7 +331,7 @@
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
                                     android:layout_centerInParent="true"
-                                    android:src="@drawable/abouttheapp" />
+                                    android:src="@drawable/dsutbinnearme" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -340,11 +340,11 @@
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginBottom="10dp"
-                                    android:text="About the APP"
+                                    android:text="Dustbin Near Me"
                                     android:textSize="16sp" />
 
                                 <Button
-                                    android:id="@+id/butonAboutTheAPP"
+                                    android:id="@+id/butonDustbinNearMe"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:background="@android:color/transparent" />

@@ -26,5 +26,6 @@
         <item> Driver </item>
     </string-array>
     <string name="title_activity_driver_mapping">Map</string>
+    <string name="title_activity_near_by_main_activuty">Map</string>
 
 </resources>
