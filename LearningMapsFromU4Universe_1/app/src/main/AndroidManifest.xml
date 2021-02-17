@@ -37,7 +37,7 @@
             android:name=".nearByMainActivuty">
             </activity>
 
-        // @string/title_activity_near_by_main_activuty
+        <!--// @string/title_activity_near_by_main_activuty-->
         <activity android:name=".mainNotification" />
         <activity android:name=".profileDriver" />
         <activity android:name=".profileUser" />

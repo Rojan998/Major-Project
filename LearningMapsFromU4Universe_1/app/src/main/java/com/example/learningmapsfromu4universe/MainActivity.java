@@ -185,7 +185,6 @@ public class MainActivity extends  FragmentActivity implements OnMapReadyCallbac
         }
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-
             String cityName =  getCityName(latLng);
 
 

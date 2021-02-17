@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -30,6 +31,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,9 +62,11 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
     private LocationRequest locationRequest;
     private Location lastLocation;
     private Marker currentLocationMarker;
+    Polyline polyline = null;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    List<LatLng> latLngList = new ArrayList<>();
 
 
     ArrayList<LatLng> markerPoints;
@@ -75,6 +80,8 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
 
         markerPoints = new ArrayList<LatLng>();
 
+        // latlanglist = new ArrayList<LatLng>();
+
 
         btn_show_directions = findViewById(R.id.showDirection);
         btn_show_directions.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +89,6 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
             public void onClick(View view) {
 
 
-                //getDirections();
             }
         });
 
@@ -97,33 +103,6 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
     }
 
-
-/*    public LatLng  getDirections(LatLng location) {
-*//*
-        List<Address> placeList;
-        if (!location.equals("")){
-            Geocoder geocoder = new Geocoder(this);
-            placeList = geocoder.getFromLocationName(location,5);
-
-
-
-             *//*
-    } */
-
-  /*      DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("User Current Location")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-*/
 
 
 
@@ -201,6 +180,24 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
                 Double Longitude = dataSnapshot.child("longitude").getValue(Double.class);
 
                 LatLng location = new LatLng(Latitude, Longitude);
+                latLngList.add(location);
+                btn_show_directions.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //Draw Polyline on Map
+                        if (polyline != null) polyline.remove();
+                        //Create PolylineOptions
+                        PolylineOptions polylineOptions = new PolylineOptions()
+                                .addAll(latLngList).clickable(true);
+                        polyline = mMap.addPolyline(polylineOptions);
+
+                    }
+                });
+
+
+
+
+
 
 
 
