@@ -106,7 +106,7 @@ public class Guide_section extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Guide_section.this, "My Notifications ", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Guide_section.this, mainNotification.class);
+                Intent intent = new Intent(Guide_section.this, m1_notification.class);
                 startActivity(intent);
             }
         });
@@ -124,12 +124,16 @@ public class Guide_section extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Guide_section.this, "Project Teams ", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Guide_section.this, recycler_notification.class);
+                startActivity(intent);
             }
         });
         button_acknowledgement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Guide_section.this, "Acknowledgements ", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Guide_section.this, recycler_acknowledgement.class);
+                startActivity(intent);
             }
         });
         button_signout.setOnClickListener(new View.OnClickListener() {
