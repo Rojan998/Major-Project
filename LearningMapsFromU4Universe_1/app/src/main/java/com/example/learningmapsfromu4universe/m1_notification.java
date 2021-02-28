@@ -61,12 +61,13 @@ public class m1_notification extends AppCompatActivity {
         try {
             json.put("to","/topics/"+"news");
             JSONObject notificationObj = new JSONObject();
+
             notificationObj.put("title","Late Arrival");
-            notificationObj.put("body","You have been late");
+            notificationObj.put("body","You have been late for pickup");
 
             JSONObject extraData = new JSONObject();
             extraData.put("brandId","Late Arrivalls");
-            extraData.put("category","Late mate");
+            extraData.put("category","You have been late for pickup");
 
 
             json.put("notification",notificationObj);

@@ -33,7 +33,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(title).setContentText(body).setSmallIcon(R.drawable.notifications);
 
         Intent intent;
-        if (category.equals("shoes")){
+        if (category.equals("You have been late for pickup")){
             intent = new Intent(this,m1_receive_notification.class);
 
         }

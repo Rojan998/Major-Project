@@ -45,6 +45,7 @@ public class mySchedule extends AppCompatActivity implements TimePickerDialog.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_schedule);
+        getSupportActionBar().setTitle("My Schedule");
 
         calenderView = findViewById(R.id.calenderView);
         datetime = findViewById(R.id.timeanddateTextView);

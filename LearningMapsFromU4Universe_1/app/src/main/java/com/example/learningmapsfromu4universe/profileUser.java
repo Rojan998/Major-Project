@@ -22,6 +22,7 @@ public class profileUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_user);
+        getSupportActionBar().setTitle("My Profile");
 
         txt_username = findViewById(R.id.profile_user_name);
         txt_address =findViewById(R.id.profile_user_address);

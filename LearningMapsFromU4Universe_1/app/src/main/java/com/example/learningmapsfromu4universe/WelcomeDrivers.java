@@ -83,7 +83,7 @@ public class WelcomeDrivers extends AppCompatActivity {
 
                 Toast.makeText(WelcomeDrivers.this, "My Notifications ", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(WelcomeDrivers.this, mainNotification.class);
+                Intent intent = new Intent(WelcomeDrivers.this, m1_receive_notification.class);
                 startActivity(intent);
             }
         });
@@ -98,12 +98,16 @@ public class WelcomeDrivers extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(WelcomeDrivers.this, "Project Teams ", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(WelcomeDrivers.this, recycler_notification.class);
+                startActivity(intent);
             }
         });
         button_acknowledgement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(WelcomeDrivers.this, "Acknowledgements ", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(WelcomeDrivers.this, recycler_acknowledgement.class);
+                startActivity(intent);
             }
         });
         button_signout.setOnClickListener(new View.OnClickListener() {

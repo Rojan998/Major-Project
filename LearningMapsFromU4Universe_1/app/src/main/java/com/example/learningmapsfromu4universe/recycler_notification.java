@@ -50,7 +50,7 @@ public class recycler_notification extends AppCompatActivity {
         m = new model_notification();
         m.setMessage("Suhana Pradhan");
         m.setMessageDescription("BCT B 73082");
-        m.setImg(R.drawable.suhana_image);
+        m.setImg(R.drawable.suhana_image1);
         models.add(m);
 
 //        m = new model_notification();
