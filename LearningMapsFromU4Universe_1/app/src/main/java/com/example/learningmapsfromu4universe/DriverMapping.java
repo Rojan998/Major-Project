@@ -56,7 +56,7 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     public static final int PERMISSION_REQUEST_CODE = 9001;
 
-    Button btn_show_directions;
+    Button btn_show_directions, btn_clear_directions;
 
     private GoogleApiClient client;
     private LocationRequest locationRequest;
@@ -66,7 +66,9 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+
     List<LatLng> latLngList = new ArrayList<>();
+    List<Marker> markerList = new ArrayList<>();
 
 
     ArrayList<LatLng> markerPoints;
@@ -84,6 +86,8 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
 
 
         btn_show_directions = findViewById(R.id.showDirection);
+        btn_clear_directions = findViewById(R.id.clearDirection);
+
         btn_show_directions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,6 +197,18 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
 
                     }
                 });
+
+                btn_clear_directions.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //Clear All
+                        if (polyline !=null) polyline.remove();
+                        for (Marker marker : markerList) marker.remove();
+                        //latLngList.clear();
+                        markerList.clear();
+                    }
+                });
+
 
 
 

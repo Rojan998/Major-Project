@@ -36,7 +36,7 @@ public class recycler_notification extends AppCompatActivity {
 
         model_notification m = new model_notification();
         m.setMessage("Ojaswee Kafle");
-        m.setMessageDescription("BCT B 73061");
+        m.setMessageDescription("BCT B 73049");
         m.setImg(R.drawable.ojaswee_image_3);
         models.add(m);
 

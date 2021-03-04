@@ -34,16 +34,16 @@
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
-<!--        <Button-->
-<!--            android:id="@+id/clearDirection"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:background="@drawable/rounded_edge"-->
-<!--            android:text="Clear Directions"-->
-<!--            android:textColor="#ffffff"-->
-<!--            android:textSize="20sp" />-->
+        <Button
+            android:id="@+id/clearDirection"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_edge"
+            android:text="Clear Directions"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </LinearLayout>
