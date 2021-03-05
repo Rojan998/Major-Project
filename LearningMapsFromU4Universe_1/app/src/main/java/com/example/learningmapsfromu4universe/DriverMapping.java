@@ -51,7 +51,9 @@ import java.util.Locale;
 public class DriverMapping extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener, GoogleMap.OnMapLongClickListener {
+
+
 
     private GoogleMap mMap;
     public static final int PERMISSION_REQUEST_CODE = 9001;
@@ -61,7 +63,8 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
     private GoogleApiClient client;
     private LocationRequest locationRequest;
     private Location lastLocation;
-    private Marker currentLocationMarker;
+    private Marker currentLocationMarker, usercurrentLocationMarker;
+
     Polyline polyline = null;
 
     FirebaseDatabase firebaseDatabase;
@@ -75,6 +78,8 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
 
     // private MarkerOptions place1, place2;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +87,7 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
 
         markerPoints = new ArrayList<LatLng>();
 
-        // latlanglist = new ArrayList<LatLng>();
+
 
 
         btn_show_directions = findViewById(R.id.showDirection);
@@ -163,6 +168,7 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
 
@@ -183,8 +189,23 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
                 Double Latitude = dataSnapshot.child("latitude").getValue(Double.class);
                 Double Longitude = dataSnapshot.child("longitude").getValue(Double.class);
 
-                LatLng location = new LatLng(Latitude, Longitude);
+                final LatLng location = new LatLng(Latitude, Longitude);
                 latLngList.add(location);
+                String usercityName = getUserCityName(location);
+
+
+
+                MarkerOptions markerOptionsUser = new MarkerOptions();
+                markerOptionsUser.position(location);
+                markerOptionsUser.title(usercityName);
+                markerOptionsUser.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+
+
+                usercurrentLocationMarker = mMap.addMarker(markerOptionsUser);
+                markerList.add(usercurrentLocationMarker);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
+
+
                 btn_show_directions.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -203,28 +224,12 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
                     public void onClick(View view) {
                         //Clear All
                         if (polyline !=null) polyline.remove();
-                        for (Marker marker : markerList) marker.remove();
+                        //for (Marker marker : markerList) marker.remove();
                         //latLngList.clear();
-                        markerList.clear();
+                        //markerList.clear();
+
                     }
                 });
-
-
-
-
-
-
-
-
-
-                String usercityName = getUserCityName(location);
-
-
-                mMap.addMarker(new MarkerOptions().position(location).title(usercityName)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
-
-
 
 
             }
@@ -289,6 +294,7 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
     public void onConnected(@Nullable Bundle bundle) {
         locationRequest = new LocationRequest();
 
+
         locationRequest.setInterval(1000);
         locationRequest.setFastestInterval(1000);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
@@ -305,6 +311,9 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
     @Override
     public void onLocationChanged(Location location) {
         lastLocation = location;
+
+        mMap.setOnMapLongClickListener(this);
+
 
         if (currentLocationMarker != null) {
             currentLocationMarker.remove();
@@ -390,5 +399,17 @@ public class DriverMapping extends FragmentActivity implements OnMapReadyCallbac
 
     }
 
+
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+
+
+        for (Marker marker : markerList)
+            marker.remove();
+            latLngList.clear();
+
+
+
+    }
 
 }
